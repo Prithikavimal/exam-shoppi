@@ -1,0 +1,62 @@
+class ShoppingAssistant:
+    def __init__(self):
+        self.preferences = []
+        self.products = {
+            'electronics': ['Smartphone', 'Laptop', 'Headphones'],
+            'fashion': ['Jeans', 'T-Shirt', 'Sneakers'],
+            'books': ['Novel', 'Biography', 'Science Fiction'],
+            'home': ['Vacuum Cleaner', 'Blender', 'Coffee Maker']
+        }
+        self.recommendations = []
+
+    def get_user_preferences(self):
+        """
+        Prompt the user to enter their preferences for shopping categories and store them in a list.
+        """
+        print("Enter your shopping preferences from the following categories:")
+        print(", ".join(self.products.keys()))
+        preferences = input("Your preferences (comma-separated): ").strip().split(',')
+        self.preferences = [preference.strip().lower() for preference in preferences if preference.strip().lower() in self.products]
+        if not self.preferences:
+            print("No valid preferences entered. Please try again.")
+        else:
+            print(f"Preferences saved: {', '.join(self.preferences)}")
+
+    def recommend_products(self):
+        """
+        Recommend products based on the user's preferences.
+        """
+        if not self.preferences:
+            print("No preferences found. Please enter your preferences first.")
+            return
+        
+        self.recommendations = []
+        for preference in self.preferences:
+            self.recommendations.extend(self.products[preference])
+        
+        print("\nRecommended Products based on your preferences:")
+        for product in self.recommendations:
+            print(f"- {product}")
+
+def main():
+    assistant = ShoppingAssistant()
+    
+    while True:
+        print("\n--- Online AI Shopping Assistant ---")
+        print("1. Enter Preferences")
+        print("2. Get Recommendations")
+        print("3. Exit")
+        choice = input("Choose an option (1, 2, or 3): ").strip()
+        
+        if choice == '1':
+            assistant.get_user_preferences()
+        elif choice == '2':
+            assistant.recommend_products()
+        elif choice == '3':
+            print("Exiting the Shopping Assistant. Goodbye!")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+if __name__ == "__main__":
+    main()
